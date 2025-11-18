@@ -7,6 +7,7 @@ World-class personal website built with Next.js 16, React 19, and Tailwind CSS 4
 - **Framework**: Next.js 16.0.3 (with Turbopack)
 - **UI Library**: React 19.2.0
 - **Styling**: Tailwind CSS 4
+- **Icons**: Lucide React (1000+ beautiful, consistent icons)
 - **Language**: TypeScript 5
 - **Code Quality**: ESLint 9, Prettier 3
 - **Fonts**: Geist Sans & Geist Mono (Next.js font optimization)
@@ -122,6 +123,14 @@ See [ASSETS_NEEDED.md](./ASSETS_NEEDED.md) for required image files:
 - Favicon (32x32px)
 - App icons (192x192px, 512x512px)
 - Social sharing image (1200x630px)
+
+### Icon System
+
+See [ICONS.md](./ICONS.md) for complete icon usage guide:
+- Lucide React icon library (1000+ icons)
+- Best practices and accessibility
+- Common icons reference
+- Styling examples with Tailwind
 
 ## 📚 Project Structure
 
