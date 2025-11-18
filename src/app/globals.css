@@ -20,6 +20,10 @@
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   --safe-area-left: env(safe-area-inset-left, 0px);
 
+  /* Foldable Device Support - viewport segments */
+  --viewport-segment-width: env(viewport-segment-width 0 0, 100vw);
+  --viewport-segment-height: env(viewport-segment-height 0 0, 100vh);
+
   /* Fluid Typography using clamp() */
   --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
@@ -245,5 +249,146 @@ body::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   ADVANCED RESPONSIVE: Edge Cases
+   ======================================== */
+
+/* Phone Landscape Mode (with keyboard) */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Reduce vertical padding when space is limited */
+  body {
+    padding-top: calc(var(--safe-area-top) * 0.5);
+    padding-bottom: calc(var(--safe-area-bottom) * 0.5);
+  }
+
+  /* Compact spacing for landscape phones */
+  section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Smaller headings in phone landscape */
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem) !important;
+  }
+}
+
+/* Tablet Landscape Mode (768px - 1024px in landscape) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Optimize layout for tablet landscape */
+  .container {
+    max-width: 90%;
+  }
+
+  /* Adjust font sizes for tablet landscape reading distance */
+  :root {
+    --font-size-base: clamp(1rem, 1.5vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 2vw, 1.375rem);
+  }
+}
+
+/* Foldable Devices (Samsung Galaxy Fold, Surface Duo, etc.) */
+@media (horizontal-viewport-segments: 2) {
+  /* Dual-screen layout for horizontal folding */
+  .foldable-layout {
+    display: grid;
+    grid-template-columns: env(viewport-segment-width 0 0, 50%) env(
+        viewport-segment-width 1 0,
+        50%
+      );
+    gap: calc(
+      env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 100vw)
+    );
+  }
+}
+
+@media (vertical-viewport-segments: 2) {
+  /* Dual-screen layout for vertical folding */
+  .foldable-layout {
+    display: grid;
+    grid-template-rows: env(viewport-segment-height 0 0, 50%) env(
+        viewport-segment-height 0 1,
+        50%
+      );
+    gap: calc(
+      env(viewport-segment-top 0 1, 0px) - env(viewport-segment-bottom 0 0, 100vh)
+    );
+  }
+}
+
+/* Container Queries - Component-level responsiveness */
+@supports (container-type: inline-size) {
+  /* Enable container queries */
+  .container-query {
+    container-type: inline-size;
+    container-name: main;
+  }
+
+  /* Card layouts adapt based on container width, not viewport */
+  @container main (min-width: 400px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @container main (min-width: 800px) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+/* Very Small Devices (Galaxy Fold closed, small phones) */
+@media (max-width: 320px) {
+  :root {
+    --font-size-base: 0.875rem;
+    --font-size-lg: 1rem;
+    --font-size-xl: 1.125rem;
+  }
+
+  /* Reduce padding on very small screens */
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Large Tablets / Small Laptops (iPad Pro landscape) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  /* Optimize for devices between tablet and laptop */
+  :root {
+    --font-size-base: clamp(1rem, 1.2vw, 1.125rem);
+  }
+}
+
+/* Ultra-wide monitors (> 2560px) */
+@media (min-width: 2560px) {
+  /* Prevent content from stretching too wide */
+  .container {
+    max-width: 2048px;
+  }
+}
+
+/* Aspect Ratio: Very Wide (ultra-wide monitors, special displays) */
+@media (min-aspect-ratio: 21/9) {
+  /* Adjust layout for ultra-wide displays */
+  .container {
+    max-width: 85%;
+  }
+}
+
+/* Aspect Ratio: Very Tall (some tablets in portrait) */
+@media (max-aspect-ratio: 1/2) {
+  /* Optimize for very tall screens */
+  section {
+    padding-top: clamp(2rem, 5vh, 4rem);
+    padding-bottom: clamp(2rem, 5vh, 4rem);
   }
 }
