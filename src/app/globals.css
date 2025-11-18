@@ -6,7 +6,7 @@
   --foreground: #1a1a1a;
   --accent: #6366f1; /* Indigo accent */
   --accent-hover: #4f46e5;
-  --muted: #6b7280;
+  --muted: #4b5563; /* WCAG AAA compliant - 7:1 contrast ratio */
   --border: #e5e7eb;
 
   /* Premium Gradients */
@@ -76,8 +76,11 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
+/* Smooth scrolling (only if user hasn't requested reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -90,7 +93,6 @@ body {
   /* Ensure smooth font rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   /* Prevent horizontal scroll on mobile */
   overflow-x: hidden;
   /* Safe area insets for notches and rounded corners */
@@ -233,11 +235,18 @@ body::after {
   }
 }
 
-/* Smooth transitions */
-* {
+/* Smooth transitions (only on interactive elements for better performance) */
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[role="link"] {
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Disable animations for users who prefer reduced motion */

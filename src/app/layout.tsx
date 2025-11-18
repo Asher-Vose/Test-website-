@@ -84,6 +84,26 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Structured Data (JSON-LD) for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Asher Vose",
+              url: "https://ashervose.com",
+              sameAs: [
+                // Add your social media profiles here
+                // "https://twitter.com/yourusername",
+                // "https://linkedin.com/in/yourusername",
+                // "https://github.com/yourusername",
+              ],
+              jobTitle: "Professional", // Update with actual job title
+              description: "Personal website of Asher Vose.",
+            }),
+          }}
+        />
         <WebVitals />
         {children}
       </body>

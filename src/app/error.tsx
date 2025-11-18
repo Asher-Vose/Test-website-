@@ -19,7 +19,7 @@ export default function Error({
   return (
     <div className="min-h-screen bg-background flex items-center justify-center">
       <Container maxWidth="lg" className="text-center py-20">
-        <div className="space-y-8 animate-[fadeInUp_0.8s_ease-out]">
+        <div className="space-y-8 animate-[fadeInUp_0.8s_ease-out]" role="alert" aria-live="assertive">
           {/* Error icon */}
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[color:var(--color-border)]">
             <svg
@@ -32,6 +32,8 @@ export default function Error({
               strokeLinecap="round"
               strokeLinejoin="round"
               className="text-[color:var(--color-muted)]"
+              aria-label="Error icon"
+              role="img"
             >
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
@@ -57,6 +59,7 @@ export default function Error({
           {/* Actions */}
           <div className="flex gap-4 justify-center pt-4">
             <button
+              type="button"
               onClick={reset}
               className="inline-block px-10 py-5 rounded-full text-[length:var(--font-size-base)] font-medium tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] active:scale-95"
               style={{ background: 'var(--gradient-accent)', color: 'var(--background)' }}
